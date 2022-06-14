@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent windows
    
    environment {
   DOCKERHUB_CREDENTIALS=credentials('dockerhub')
@@ -93,7 +93,8 @@ stage('package') {
                sh '''
             
               mvn package
-              
+              ls -l target/
+              pwd
                '''
             }
         }
@@ -122,8 +123,9 @@ stage('install') {
                '''
             }
         }
-       
-       stage('SonarQube analysis') {
+
+
+stage('SonarQube analysis') {
             agent {
                 docker {
 
@@ -143,11 +145,12 @@ stage('install') {
 
 
 
+       
 stage('build ') {
 
             steps {
                sh '''
-                docker build -t germaine05/maven-project:$ImageTAG .
+           docker build -t devopseasylearning2021/adela05:$ImageTAG .
                '''
             }
         }
@@ -170,7 +173,7 @@ stage('build ') {
      stage('Docker push ') {
             steps {
                sh '''
-              docker push germaine05/maven-project:$ImageTAG 
+              docker push devopseasylearning2021/adela05:$ImageTAG 
                 '''
             }
         }
