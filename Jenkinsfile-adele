@@ -1,5 +1,7 @@
 pipeline {
-    agent windows
+    agent { 
+        label 'windows'
+         }
    
    environment {
   DOCKERHUB_CREDENTIALS=credentials('dockerhub')
